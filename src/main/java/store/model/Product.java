@@ -9,8 +9,7 @@ public class Product {
     private final int price;
     
     private final Promotion promotion;
-    
-    
+
     public Product(String name, int price, Promotion promotion) {
         this.name = name;
         this.price = price;

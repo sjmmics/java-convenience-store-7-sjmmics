@@ -35,4 +35,15 @@ public class Inventory {
         }
         return false;
     }
+
+    public Product getProduct(String name) {
+        for (Map.Entry<Product, Stock> entry : inventory.entrySet()) {
+            Product product = entry.getKey();
+            String productName = product.getName();
+            if (productName.equals(name)) {
+                return product;
+            }
+        }
+        return new Product("", 0, null);
+    }
 }

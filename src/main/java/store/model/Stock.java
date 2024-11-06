@@ -36,9 +36,9 @@ public class Stock {
         }
         return regular + "개";
     }
-    
-    
+
     public int getTotal() {
         return regular + promotion;
     }
+
 }
