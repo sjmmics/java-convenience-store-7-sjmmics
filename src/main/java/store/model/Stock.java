@@ -29,7 +29,6 @@ public class Stock {
         return promotion + "개";
     }
     
-    
     public String getRegularString() {
         if (regular == 0) {
             return SOLD_OUT;
@@ -40,5 +39,12 @@ public class Stock {
     public int getTotal() {
         return regular + promotion;
     }
-
+    
+    public int getRegular() {
+        return regular;
+    }
+    
+    public int getPromotion() {
+        return promotion;
+    }
 }

@@ -18,7 +18,7 @@ public class ConsoleOutputView implements OutputView {
         for (Map.Entry<Product, Stock> entry : inventory.getEntrySet()) {
             Product product = entry.getKey();
             Stock stock = entry.getValue();
-            if (product.ContainsPromotion()) {
+            if (product.containsPromotion()) {
                 printProductAndTotalStock(product, stock);
             }
             if (product.notContainsPromotion()) {
@@ -49,4 +49,5 @@ public class ConsoleOutputView implements OutputView {
         printProduct(product);
         System.out.println(stock.getRegularString());
     }
+    
 }

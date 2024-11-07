@@ -1,5 +1,6 @@
 package store.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Product {
@@ -48,11 +49,28 @@ public class Product {
         return promotion == null;
     }
     
-    public boolean ContainsPromotion() {
+    public boolean containsPromotion() {
         return promotion != null;
     }
     
     public boolean equalsName(String orderProductName) {
         return this.name.equals(orderProductName);
+    }
+    
+    public boolean canPromotionDiscount(LocalDateTime orderTime) {
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", promotion=" + promotion +
+                '}';
+    }
+    
+    public int getPromotionCondition() {
+        return promotion.getPromotionCondition();
     }
 }

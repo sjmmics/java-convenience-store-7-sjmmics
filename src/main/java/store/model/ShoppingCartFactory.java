@@ -15,7 +15,7 @@ public class ShoppingCartFactory {
 
     private static final int QUANTITY = 1;
 
-    private final static String REGEX = "^[가-힣]+-[0-9]+(,([가-힣]+-[0-9]+))*$";
+    private final static String REGEX = "^\\[[가-힣]+-[0-9]+](,\\[[가-힣]+-[0-9]+])*$";
 
     private final static Pattern PATTERN = Pattern.compile(REGEX);
 
@@ -68,12 +68,11 @@ public class ShoppingCartFactory {
         String quantity = orderItemAndQuantitySplit[QUANTITY];
         orders.put(name, quantity);
     }
-
-
+    
     private void validateNumberRange(Map<String, String> orders) {
         for (Map.Entry<String, String> entry : orders.entrySet()) {
             try {
-                Integer.parseInt(entry.getKey());
+                Integer.parseInt(entry.getValue());
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException();
             }
@@ -97,8 +96,21 @@ public class ShoppingCartFactory {
         if (exceedStock(orders, inventory)) {
             throw new IllegalArgumentException();
         }
+        if (zeroQuantity(orders, inventory)) {
+            throw new IllegalArgumentException();
+        }
     }
-
+    
+    private boolean notContainsItem(Map<String, Integer> orders, Inventory inventory) {
+        for (Map.Entry<String, Integer> entry : orders.entrySet()) {
+            String name = entry.getKey();
+            if (inventory.notContainItem(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private boolean exceedStock(Map<String, Integer> orders, Inventory inventory) {
         for (Map.Entry<String, Integer> entry : orders.entrySet()) {
             String orderProductName = entry.getKey();
@@ -109,29 +121,30 @@ public class ShoppingCartFactory {
         }
         return false;
     }
-
-    private boolean notContainsItem(Map<String, Integer> orders, Inventory inventory) {
+    
+    private boolean zeroQuantity(Map<String, Integer> orders, Inventory inventory) {
         for (Map.Entry<String, Integer> entry : orders.entrySet()) {
-            String name = entry.getKey();
-            if (inventory.notContainItem(name)) {
+            int orderQuantity = entry.getValue();
+            if (orderQuantity == 0) {
                 return true;
             }
         }
         return false;
     }
-
+    
+    
     private Map<Product, Quantity> getOrderProducts(Map<String, Integer> namesAndQuantity,
                                                     Inventory inventory) {
         Map<Product, Quantity> cart = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : namesAndQuantity.entrySet()) {
             String name = entry.getKey();
-            int totalQuantity = entry.getValue();
             Product product = inventory.getProduct(name);
-            int promotionQuantity = 0;
-            if (product.ContainsPromotion()) {
-
-            }
+            int purchaseQuantity = entry.getValue();
+            Quantity quantity = Quantity.getQuantity(product, purchaseQuantity);
+            cart.put(product, quantity);
         }
-
+        return cart;
     }
+    
+    
 }

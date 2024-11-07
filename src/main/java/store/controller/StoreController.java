@@ -1,8 +1,10 @@
 package store.controller;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.model.Inventory;
-import store.model.OrderProducts;
 import store.model.Promotions;
+import store.model.ShoppingCart;
+import store.model.ShoppingCartFactory;
 import store.service.StoreService;
 import store.util.InventoryInitializer;
 import store.util.PromotionsInitializer;
@@ -26,14 +28,16 @@ public class StoreController {
     public void run() {
         initializePromotionsAndInventoryAndSave();
         outputView.printInventory(service.getInventory());
-        OrderProducts orderProducts = getOrderItems(service.getInventory());
-        
+        ShoppingCartFactory factory = new ShoppingCartFactory();
+        ShoppingCart cart = getCart(factory);
+        service.applyPromotionDiscount(cart, DateTimes.now());
+
     }
     
-    private OrderProducts getOrderItems(Inventory inventory) {
+    private ShoppingCart getCart(ShoppingCartFactory factory) {
         while (true) {
             try {
-                return new OrderProducts(inputView.getOrder(), inventory);
+                return factory.get(inputView.getOrder(), service.getInventory());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

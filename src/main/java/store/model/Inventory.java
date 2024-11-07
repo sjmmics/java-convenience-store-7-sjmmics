@@ -46,4 +46,16 @@ public class Inventory {
         }
         return new Product("", 0, null);
     }
+    
+    public boolean isEnoughPromotionSale(Product product, int totalPurchaseQuantity) {
+        return true;
+    }
+    
+    public boolean isNotEnoughPromotionSale(Product product, int purchaseQuantity) {
+        return true;
+    }
+    
+    public Stock getStock(Product product) {
+        return inventory.get(product);
+    }
 }

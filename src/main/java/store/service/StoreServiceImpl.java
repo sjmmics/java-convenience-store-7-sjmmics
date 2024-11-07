@@ -2,7 +2,10 @@ package store.service;
 
 import store.model.Inventory;
 import store.model.Promotions;
+import store.model.ShoppingCart;
 import store.repository.StoreRepository;
+
+import java.time.LocalDateTime;
 
 public class StoreServiceImpl implements StoreService {
     
@@ -26,4 +29,13 @@ public class StoreServiceImpl implements StoreService {
     public Inventory getInventory() {
         return repository.getInventory();
     }
+    
+    @Override
+    public void applyPromotionDiscount(ShoppingCart cart, LocalDateTime now) {
+        cart.applyPromotionDiscount(getInventory(), now);
+        System.out.println(cart);
+    }
+    
+    
+    
 }

@@ -40,4 +40,9 @@ public class Promotion {
     public int hashCode() {
         return Objects.hash(name, startDate, endDate, condition);
     }
+    
+    
+    public int getPromotionCondition() {
+        return this.condition;
+    }
 }
