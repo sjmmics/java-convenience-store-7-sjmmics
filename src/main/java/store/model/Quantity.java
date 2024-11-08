@@ -58,4 +58,8 @@ public class Quantity {
                 ", promotion=" + promotion +
                 '}';
     }
+    
+    public int getTotal() {
+        return this.promotion + this.regular;
+    }
 }

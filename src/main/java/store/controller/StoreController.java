@@ -1,6 +1,7 @@
 package store.controller;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import store.exception.OutOfPromotionStockException;
 import store.model.Inventory;
 import store.model.Promotions;
 import store.model.ShoppingCart;
@@ -10,6 +11,8 @@ import store.util.InventoryInitializer;
 import store.util.PromotionsInitializer;
 import store.view.InputView;
 import store.view.OutputView;
+
+import java.time.LocalDateTime;
 
 public class StoreController {
     
@@ -30,8 +33,20 @@ public class StoreController {
         outputView.printInventory(service.getInventory());
         ShoppingCartFactory factory = new ShoppingCartFactory();
         ShoppingCart cart = getCart(factory);
-        service.applyPromotionDiscount(cart, DateTimes.now());
+        applyPromotionDiscount(cart, DateTimes.now());
 
+    }
+    
+    private void applyPromotionDiscount(ShoppingCart cart, LocalDateTime now) {
+        while (true) {
+            try {
+                service.applyPromotionDiscount(cart, DateTimes.now());
+            } catch (OutOfPromotionStockException e) {
+                if (inputView.buyRegularStock()) {
+                
+                }
+            }
+        }
     }
     
     private ShoppingCart getCart(ShoppingCartFactory factory) {

@@ -25,7 +25,7 @@ public class AppConfig {
     }
     
     private StoreService getService() {
-        return new StoreServiceImpl(getRepository());
+        return new StoreServiceImpl(getStoreController(), getRepository());
     }
     
     public StoreController getStoreController() {

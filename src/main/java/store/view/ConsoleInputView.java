@@ -13,4 +13,9 @@ public class ConsoleInputView implements InputView {
         System.out.println(orderGuideMessage);
         return Console.readLine();
     }
+    
+    @Override
+    public boolean buyRegularStock() {
+        return false;
+    }
 }

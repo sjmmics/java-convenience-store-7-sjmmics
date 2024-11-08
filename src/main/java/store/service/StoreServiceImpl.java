@@ -1,5 +1,7 @@
 package store.service;
 
+import store.controller.StoreController;
+import store.exception.OutOfPromotionStockException;
 import store.model.Inventory;
 import store.model.Promotions;
 import store.model.ShoppingCart;
@@ -9,9 +11,12 @@ import java.time.LocalDateTime;
 
 public class StoreServiceImpl implements StoreService {
     
+    private final StoreController controller;
+    
     private final StoreRepository repository;
     
-    public StoreServiceImpl(StoreRepository repository) {
+    public StoreServiceImpl(StoreController controller, StoreRepository repository) {
+        this.controller = controller;
         this.repository = repository;
     }
     
@@ -34,6 +39,7 @@ public class StoreServiceImpl implements StoreService {
     public void applyPromotionDiscount(ShoppingCart cart, LocalDateTime now) {
         cart.applyPromotionDiscount(getInventory(), now);
         System.out.println(cart);
+
     }
     
     
