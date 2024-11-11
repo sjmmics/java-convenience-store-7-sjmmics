@@ -3,6 +3,8 @@ package store.domain.discount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import store.model.discount.MembershipDiscountDetail;
 import store.model.inventory.Inventory;
 import store.model.inventory.Product;
@@ -42,13 +44,14 @@ public class MembershipDiscountDetailTest {
         return new Inventory(productStockMap);
     }
     
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"1", "2", "3", "4", "5"})
     @DisplayName("멤버십 할인 금액 계산 테스트")
-    void membershipDiscountAmountTest() {
+    void membershipDiscountAmountTest(int quantity) {
         MembershipDiscountDetail discountDetail =
-                getMemberShipDiscountDetailFromWaterOrderQuantity(5);
+                getMemberShipDiscountDetailFromWaterOrderQuantity(quantity);
         assertEquals(discountDetail.getAmount(),
-                (int) (WATER_PRICE * 5 * MembershipDiscountDetail.DISCOUNT_RATIO));
+                (int) (WATER_PRICE * quantity * MembershipDiscountDetail.DISCOUNT_RATIO));
         
     }
     
@@ -59,7 +62,7 @@ public class MembershipDiscountDetailTest {
                 getMemberShipDiscountDetailFromWaterOrderQuantity(2000);
         assertEquals(discountDetail.getAmount(), MembershipDiscountDetail.MAX_DISCOUNT_AMOUNT);
         assertNotEquals(discountDetail.getAmount(),
-                (int) (WATER_PRICE * 5 * MembershipDiscountDetail.DISCOUNT_RATIO));
+                (int) (WATER_PRICE * 2000 * MembershipDiscountDetail.DISCOUNT_RATIO));
         
     }
     
