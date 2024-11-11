@@ -3,6 +3,7 @@
 
 기능 목록
 ---------
+* AppConfig: Controller, Service, Repository, View 객체 구현체를 설정하여 객체를 생성한다.
 * InputView: 입력과 관련된 안내 메시지를 출력하고 입력을 받아서 StoreController에 전달한다.
   * 입력값이 Y 또는 N이어야 하는 경우 입력받은 문자열을 검증해서 잘못된 형식이면 IllegalArgumentException를 호출하고, 예외 메시지를 출력하고 다시 입력을 받는다.
 * OutputView: StoreController로부터 전달받은 결과값을 출력한다.
@@ -25,9 +26,9 @@
 * OrderProductQuantity: 주문한 상품 수량을 저장한다. 수량 정보는 총 구매수량, 프로모션 재고 차감 수량, 일반 재고 차감 수량으로 이루어진다.
 * OrderQuantityAdjuster: 주문한 상품 수량 조절 선택지(OrderQuantityOptions)에 대한 주문자의 선택을 바탕으로 수량을 조절하며, 주문 수량(OrderProductQuantity)과 재고 현황(Inventory)를 바탕으로 주문 수량에서 프로모션 재고 차감분과 일반 재고 차감분을 갱신한다.
 * PromotionDiscountDetail: 주문 상품 별 프로모션 할인 적용 정보(프로모션 이름, 증정품 수량, 증정품 가격 합)를 저장한다. 
-* PromotionDiscountDetails: PromotionDiscountDetail를 컬렉션으로 보관한다.
+* PromotionDiscountDetails: PromotionDiscountDetail를 컬렉션으로 보관한다. 주문 정보, 편의점 재고 현황, 주문 시간을 가지고 상품 별 프로모션 할인 정보를 만들어서 보관한다.
 * MembershipDiscountDetail: 주문에 대한 멤버십할인 금액를 저장한다.
-* Receipt: 고객에게 보여줄 영수증을 담당하는 클래스, 주문 정보와 할인 내역을 표시한다.
+* Receipt: 고객에게 보여줄 영수증을 담당하는 클래스, 주문 정보와 할인 내역을 표시한다. 주문 정보, 프로모션 할인 정보, 멤버십 할인 정보를 바탕으로 영수증 객체를 생성한다.
 * InventoryInitializer: 재고 파일에서 재고 현황을 읽어서 초기화한다.
 * PromotionInitializer: 프로모션 파일에서 상품별 프로모션 정보를 읽어서 초기화한다.
 * StringValidator: 여러 클래스에서 공통으로 쓰는 문자열 검증 기능을 담당한다.
