@@ -1,6 +1,5 @@
 package store.domain;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -78,9 +77,6 @@ public class OrderQuantityAdjusterTest {
             assertNotEquals(quantity.getTotal(), ORIGINAL_TOTAL_QUANTITY - PROMOTION_STOCK_SHORTAGE);
         }
     }
-    
-    
-    
     
     void setAdjusterOfCaseAndDecision(OrderQuantityOption.OptionCase optionCase,
                                       boolean decision, int shortage) {
