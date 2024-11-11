@@ -23,6 +23,13 @@
   * 상품별 경우와, 이를 안내할 메시지, 고객의 선택을 저장한다.
 * OrderQuantityOptions: OrderQuantityOption 객체를 컬렉션으로 보관한다.
 * QuantityOptionsFactory: 주문 정보(OrderDetails)와 재고 현황(Inventory)과 주문시간을 바탕으로 비교해서 주문 중에 수량을 조절해야 하는 경우(OptionCase)가 있는지 확인하고 OrderQuantityOptions 객체를 생성한다.
+  * 먼저 프로모션을 적용할 수 있는지 확인한다.
+    * 프로모션을 적용할 수 없다면 넘어간다.
+    * 프로모션을 적용할 수 있다면 주문한 수량이 프로모션 재고를 초과하는지 확인한다.
+      * 프로모션 재고를 초과하면 일반재고로 주문할 선택지를 저장한다.
+      * 재고를 넘어가지 않는다면 주문한 수량이 모든 증정품을 포함하는지 확인한다.
+        * 모든 증정품을 포함하지 않는다면 증정품을 포함한 수량만큼 재고가 있는지 확인하고 재고가 있으면 주문 수량 추가 선택지를 저장한다.
+        * 만약 재고가 없다면 넘어간다.
 * OrderProductQuantity: 주문한 상품 수량을 저장한다. 수량 정보는 총 구매수량, 프로모션 재고 차감 수량, 일반 재고 차감 수량으로 이루어진다.
 * OrderQuantityAdjuster: 주문한 상품 수량 조절 선택지(OrderQuantityOptions)에 대한 주문자의 선택을 바탕으로 수량을 조절하며, 주문 수량(OrderProductQuantity)과 재고 현황(Inventory)를 바탕으로 주문 수량에서 프로모션 재고 차감분과 일반 재고 차감분을 갱신한다.
 * PromotionDiscountDetail: 주문 상품 별 프로모션 할인 적용 정보(프로모션 이름, 증정품 수량, 증정품 가격 합)를 저장한다. 
